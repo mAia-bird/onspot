@@ -1,0 +1,57 @@
+{
+  "lang": "en",
+  "inbox": "inbox",
+  "archive": "archive",
+  "mode": "move",
+  "min_confidence": 0.6,
+  "duplicates_dir": "_Duplicates",
+  "review_dir": "_Review",
+  "notify_telegram": false,
+  "categories": [
+    {
+      "name": "01 Taxes",
+      "description": "Tax returns and letters from the tax office",
+      "rules": { "text_any": ["tax", "finanzamt", "steuer", "hmrc", "irs"] }
+    },
+    {
+      "name": "02 Bank",
+      "description": "Bank statements, cards, loans",
+      "rules": { "text_any": ["bank", "iban", "statement", "kontoauszug"] }
+    },
+    {
+      "name": "03 Insurance",
+      "description": "Insurance policies and claims",
+      "rules": { "text_any": ["insurance", "policy", "versicherung"] }
+    },
+    {
+      "name": "04 Housing",
+      "description": "Rent, mortgage, utilities, address",
+      "rules": { "text_any": ["rent", "lease", "mortgage", "utility", "miete"] }
+    },
+    {
+      "name": "05 IDs & Personal",
+      "description": "Passports, ID cards, certificates",
+      "rules": { "filename_any": ["passport", "id"], "text_any": ["passport", "id card"] }
+    },
+    {
+      "name": "06 Contracts",
+      "description": "Signed contracts and agreements",
+      "rules": { "text_any": ["contract", "agreement", "vertrag"] }
+    },
+    {
+      "name": "07 Medical",
+      "description": "Doctors, prescriptions, clinics",
+      "rules": { "text_any": ["medical", "doctor", "prescription", "clinic"] }
+    },
+    {
+      "name": "08 Invoices & Receipts",
+      "description": "Invoices, receipts, bills",
+      "rules": { "text_any": ["invoice", "receipt", "rechnung"] }
+    },
+    {
+      "name": "09 Archive",
+      "description": "Older documents that don't fit above",
+      "rules": {}
+    }
+  ]
+}

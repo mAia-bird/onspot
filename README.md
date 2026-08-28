@@ -1,4 +1,4 @@
-<h1 align="center">📁 Paperloom</h1>
+<h1 align="center">📁 Onspot</h1>
 
 <p align="center">
   <b>Drop files in a folder. An AI reads each one and files it into your structure — and never deletes anything.</b>
@@ -14,7 +14,7 @@
 
 ---
 
-Paperloom watches an **inbox** folder. For every file you drop in, it reads the
+Onspot watches an **inbox** folder. For every file you drop in, it reads the
 contents, decides which of **your** categories it belongs to, gives it a clean
 name, and moves it into your **archive** — a tidy, topic-organized folder tree.
 
@@ -32,7 +32,7 @@ setup wizard. The AI is **optional and pluggable**: run a model on your own
 computer (private, free), use a pay-as-you-go API, or skip it and sort by simple
 keyword rules.
 
-> 🧵 Paperloom is the sibling of [Threadloom](https://github.com/mAia-bird/threadloom).
+> 🧵 Onspot is the sibling of [Threadloom](https://github.com/mAia-bird/threadloom).
 
 ## The safety promise
 
@@ -40,7 +40,7 @@ This tool is built for documents you can't afford to lose (taxes, IDs, contracts
 So, by design:
 
 - **It never deletes.** Files are *moved* from the inbox into the archive (or
-  *copied*, if you choose). Your originals are never removed by Paperloom.
+  *copied*, if you choose). Your originals are never removed by Onspot.
 - **It never overwrites.** A name clash with different content gets a ` (2)` suffix.
 - **It de-duplicates by content, not by name.** An identical file (same checksum)
   is set aside in `_Duplicates/` instead of piling up.
@@ -66,8 +66,8 @@ So, by design:
 ## Quick start
 
 ```bash
-git clone https://github.com/mAia-bird/paperloom.git
-cd paperloom
+git clone https://github.com/mAia-bird/onspot.git
+cd onspot
 python run.py
 ```
 
@@ -96,7 +96,7 @@ and `.env` (API key, Telegram token — git-ignored).
 
 ## Connecting an AI model
 
-Paperloom works **with no AI at all** (keyword rules), but a model makes it much
+Onspot works **with no AI at all** (keyword rules), but a model makes it much
 smarter — it actually *reads* each document. You have three ways to connect one;
 pick by your privacy needs and budget:
 
@@ -129,7 +129,7 @@ subscription-like feel (one flat-ish bill, many models), the closest option is
 **OpenRouter** (credit-based, includes free models). Otherwise, use a **local
 model** (free) or a **pay-as-you-go API key** as above.
 
-> If the model is ever unreachable or returns something odd, Paperloom falls back
+> If the model is ever unreachable or returns something odd, Onspot falls back
 > to the keyword rules and routes anything unclear to `_Review/` — it never
 > crashes on one bad file.
 
@@ -161,7 +161,7 @@ Two ways.
 ### The easy, recommended way: Google Drive for Desktop
 
 [Google Drive for Desktop](https://www.google.com/drive/download/) mounts your
-Drive as a normal folder on your computer. Then Paperloom needs **no Google
+Drive as a normal folder on your computer. Then Onspot needs **no Google
 account access at all** — it just reads and writes local paths:
 
 1. Install Google Drive for Desktop and sign in.
@@ -173,12 +173,12 @@ account access at all** — it just reads and writes local paths:
 3. Run `python run.py` as usual. Sorted files sync to Drive automatically.
 
 > **Note:** some systems restrict *background* processes from reading the mounted
-> Drive. If a scheduled/background run can't see the folder, run Paperloom as a
+> Drive. If a scheduled/background run can't see the folder, run Onspot as a
 > normal foreground process (a terminal, or a login-time launch agent), not a
 > locked-down system service.
 
 This is the pragmatic choice, and it works with **any** cloud that offers a
-desktop-sync folder (Dropbox, OneDrive, iCloud Drive) — Paperloom doesn't care, it
+desktop-sync folder (Dropbox, OneDrive, iCloud Drive) — Onspot doesn't care, it
 just sees folders.
 
 ### The advanced way: the Google Drive API (not built in)
@@ -228,7 +228,7 @@ git-ignored). See [`config.example.json`](config.example.json).
 
 ## Privacy
 
-With a **local** model, documents never leave your computer — Paperloom makes no
+With a **local** model, documents never leave your computer — Onspot makes no
 network calls except to `localhost`. With an **API** model, the text (or image) of
 each file is sent to that provider for classification; nothing else is uploaded,
 and files are never posted anywhere public.
@@ -250,17 +250,17 @@ Small and readable, all standard library:
 
 | File | Role |
 | --- | --- |
-| `paperloom/extract.py` | Best-effort text preview from a file (txt, pdf, …). |
-| `paperloom/classify.py` | Rules + LLM → category, name, confidence. |
-| `paperloom/llm.py` | The model client (local / API / Anthropic, incl. vision). |
-| `paperloom/organizer.py` | Dedup by checksum, safe move/copy, never delete. |
-| `paperloom/sorter.py` | The run loop over the inbox. |
-| `paperloom/setup_wizard.py` | The interactive first-run setup. |
+| `onspot/extract.py` | Best-effort text preview from a file (txt, pdf, …). |
+| `onspot/classify.py` | Rules + LLM → category, name, confidence. |
+| `onspot/llm.py` | The model client (local / API / Anthropic, incl. vision). |
+| `onspot/organizer.py` | Dedup by checksum, safe move/copy, never delete. |
+| `onspot/sorter.py` | The run loop over the inbox. |
+| `onspot/setup_wizard.py` | The interactive first-run setup. |
 
 ## Contributing
 
 Issues and PRs welcome — especially more file types (better PDF/OCR handling),
-new taxonomy templates, and translations (`paperloom/i18n.py`).
+new taxonomy templates, and translations (`onspot/i18n.py`).
 
 ## License
 

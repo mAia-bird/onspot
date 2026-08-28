@@ -1,4 +1,4 @@
-"""Interactive first-run setup for Paperloom.
+"""Interactive first-run setup for Onspot.
 
 Walks the user through: language, inbox/archive folders, move-vs-copy, a category
 taxonomy (from a template), which AI to connect (local / API / Anthropic / none),

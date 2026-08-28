@@ -18,7 +18,7 @@ import re
 import shutil
 from pathlib import Path
 
-_INDEX_DIR = ".paperloom"
+_INDEX_DIR = ".onspot"
 _MAX_SEED_BYTES = 200 * 1024 * 1024  # don't hash giant files when seeding the index
 
 

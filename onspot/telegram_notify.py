@@ -1,6 +1,6 @@
 """Optional one-way Telegram notifications (stdlib only).
 
-If configured, Paperloom sends a single short summary DM after a run. Completely
+If configured, Onspot sends a single short summary DM after a run. Completely
 optional — leave it off and everything prints to the console instead.
 """
 from __future__ import annotations

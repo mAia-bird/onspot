@@ -1,4 +1,4 @@
-"""Paperloom — drop files in a folder, an AI files them into your structure.
+"""Onspot — drop files in a folder, an AI files them into your structure.
 
 Zero third-party dependencies: everything uses the Python standard library.
 """

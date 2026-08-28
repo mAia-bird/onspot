@@ -1,11 +1,11 @@
-"""Bilingual strings (English / Russian) for Paperloom's wizard and run output."""
+"""Bilingual strings (English / Russian) for Onspot's wizard and run output."""
 
 S = {
     # ---- wizard framing ----
     "banner": {
-        "en": "📁  Paperloom — first-time setup\n"
+        "en": "📁  Onspot — first-time setup\n"
               "Drop files in a folder; an AI files them into your structure. Nothing is deleted.",
-        "ru": "📁  Paperloom — первичная настройка\n"
+        "ru": "📁  Onspot — первичная настройка\n"
               "Кидаешь файлы в папку — ИИ раскладывает их по твоей структуре. Ничего не удаляется.",
     },
     "choose_lang": {
@@ -13,12 +13,12 @@ S = {
         "ru": "Choose a language / Выберите язык:\n  [1] English\n  [2] Русский\n> ",
     },
     "intro": {
-        "en": "\nHow it works: you have an INBOX folder and an ARCHIVE folder. Paperloom reads\n"
+        "en": "\nHow it works: you have an INBOX folder and an ARCHIVE folder. Onspot reads\n"
               "each file in the inbox, decides which category it belongs to, gives it a clean\n"
               "name, and moves it into the archive. Duplicates (by content, not name) go to a\n"
               "duplicates folder; anything it's unsure about goes to a review folder.\n"
               "Safety first: it NEVER deletes, and never overwrites.\n",
-        "ru": "\nКак это работает: есть папка INBOX (входящие) и папка ARCHIVE (архив). Paperloom\n"
+        "ru": "\nКак это работает: есть папка INBOX (входящие) и папка ARCHIVE (архив). Onspot\n"
               "читает каждый файл из входящих, решает, к какой категории он относится, даёт ему\n"
               "аккуратное имя и перемещает в архив. Дубликаты (по содержимому, не по имени)\n"
               "уходят в папку дубликатов; всё сомнительное — в папку «на разбор».\n"
@@ -138,10 +138,10 @@ S = {
     # ---- notify ----
     "notify_intro": {
         "en": "\n── Notifications (optional) ───────────────────────────────\n"
-              "Paperloom can send you one short Telegram message after each run. Skip to just "
+              "Onspot can send you one short Telegram message after each run. Skip to just "
               "print to the console.",
         "ru": "\n── Уведомления (по желанию) ───────────────────────────────\n"
-              "Paperloom может слать тебе одно короткое сообщение в Telegram после каждого "
+              "Onspot может слать тебе одно короткое сообщение в Telegram после каждого "
               "прогона. Пропусти, если хватает вывода в консоль.",
     },
     "notify_enable": {
@@ -179,8 +179,8 @@ S = {
 
     # ---- run output ----
     "run_header": {
-        "en": "📁 Paperloom · inbox: {inbox} → archive: {archive} · engine: {engine}",
-        "ru": "📁 Paperloom · входящие: {inbox} → архив: {archive} · движок: {engine}",
+        "en": "📁 Onspot · inbox: {inbox} → archive: {archive} · engine: {engine}",
+        "ru": "📁 Onspot · входящие: {inbox} → архив: {archive} · движок: {engine}",
     },
     "inbox_empty": {
         "en": "  Inbox is empty — nothing to sort.",

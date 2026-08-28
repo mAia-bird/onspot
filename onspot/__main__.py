@@ -1,4 +1,4 @@
-"""``python -m paperloom`` — same behavior as ``python run.py``."""
+"""``python -m onspot`` — same behavior as ``python run.py``."""
 import sys
 
 from .config import Settings

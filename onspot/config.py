@@ -32,7 +32,7 @@ def load_env(path: Path = ENV_PATH) -> dict:
 
 
 def write_env(values: dict, path: Path = ENV_PATH) -> None:
-    lines = ["# Paperloom secrets — never commit this file (it is in .gitignore).", ""]
+    lines = ["# Onspot secrets — never commit this file (it is in .gitignore).", ""]
     for key, value in values.items():
         if value:
             lines.append(f"{key}={value}")

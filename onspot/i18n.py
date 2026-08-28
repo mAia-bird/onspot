@@ -245,6 +245,24 @@ S = {
               "   https://github.com/mAia-bird/onspot/issues\n"
               "   (технические подробности — та же команда с флагом --debug)",
     },
+
+    # ---- suggested new categories ----
+    "suggest_intro": {
+        "en": "\n  💡 The AI suggests new categories for files that fit nowhere:",
+        "ru": "\n  💡 Нейросеть предлагает новые категории для файлов, которым не нашлось места:",
+    },
+    "suggest_item": {
+        "en": "     • {name} — {desc}",
+        "ru": "     • {name} — {desc}",
+    },
+    "suggest_added": {
+        "en": "  ✓ Added {n} new categor(y/ies) to config.json. Run again to file the review items into them.",
+        "ru": "  ✓ Добавлено новых категорий в config.json: {n}. Запусти ещё раз — файлы из «на разбор» лягут в них.",
+    },
+    "suggest_hint": {
+        "en": "     To add them automatically next time, set \"auto_create_categories\": true in config.json.",
+        "ru": "     Чтобы добавлялись автоматически, поставь \"auto_create_categories\": true в config.json.",
+    },
 }
 
 

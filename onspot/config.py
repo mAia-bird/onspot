@@ -70,6 +70,9 @@ class Settings:
         self.review_dir = c.get("review_dir", "_Review")
         self.categories = c.get("categories", [])
         self.notify_telegram = bool(c.get("notify_telegram", False))
+        # When true, suggested new categories are appended to config.json
+        # automatically; when false (default), they're only suggested to you.
+        self.auto_create_categories = bool(c.get("auto_create_categories", False))
 
         # Secrets / LLM from environment.
         self.llm_enabled = os.environ.get("LLM_ENABLED", "").lower() in ("1", "true", "yes")

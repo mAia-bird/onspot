@@ -26,10 +26,13 @@ from .extract import is_image
 _SYSTEM = (
     "You are a meticulous document filer. Read the document and file it into "
     "exactly ONE of the given categories. If nothing fits, use the category "
-    "\"unknown\". Also propose a short, human-readable file name (no extension, "
-    "no slashes), in the document's own language. Reply with ONLY a JSON object: "
-    '{"category": "<category name or unknown>", "filename": "<name>", '
-    '"confidence": <0.0-1.0>}.'
+    "\"unknown\" and, in that case only, propose a new category that WOULD fit "
+    "(a short name and a one-line description, in the same language as the "
+    "existing categories). Always propose a short, human-readable file name (no "
+    "extension, no slashes), in the document's own language. Reply with ONLY a "
+    'JSON object: {"category": "<category name or unknown>", "filename": '
+    '"<name>", "confidence": <0.0-1.0>, "suggested_category": {"name": "<name>", '
+    '"description": "<desc>"}}. Omit "suggested_category" unless category is "unknown".'
 )
 
 _MEDIA = {".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png",

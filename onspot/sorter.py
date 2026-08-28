@@ -36,6 +36,7 @@ def scan_once(settings: Settings, organizer: Organizer, dry_run: bool = False) -
         preview = extract_preview(path)
         decision = classify(settings, path, preview)
         rec = organizer.place(path, decision, dry_run=dry_run)
+        rec["suggestion"] = decision.get("suggestion")
         records.append(rec)
         icon = {"filed": "📁", "review": "🔎", "duplicate": "♻️"}.get(rec["action"], "•")
         arrow = "→ (dry-run) " if dry_run else "→ "
@@ -68,6 +69,7 @@ def run(dry_run: bool = False, watch: bool = False, interval: int = 30) -> None:
         summary = _summary(settings, records, dry_run)
         if records:
             print(summary)
+            _handle_suggestions(settings, records, dry_run)
             if not dry_run:
                 notify(settings, summary)
         else:
@@ -87,3 +89,38 @@ def _engine_label(settings: Settings) -> str:
     if settings.llm_enabled and settings.llm_model:
         return f"{settings.llm_provider}:{settings.llm_model}"
     return "rules-only"
+
+
+def _handle_suggestions(settings: Settings, records: list[dict], dry_run: bool) -> None:
+    """When the model proposes new categories for review items, collect the fresh
+    ones (not already in the taxonomy), tell the user, and — if
+    ``auto_create_categories`` is on — append them to config.json."""
+    have = {c.lower() for c in settings.category_names()}
+    fresh: dict[str, str] = {}  # name -> description, deduped
+    for r in records:
+        sug = r.get("suggestion")
+        if isinstance(sug, dict) and sug.get("name"):
+            name = str(sug["name"]).strip()
+            if name and name.lower() not in have and name.lower() not in {k.lower() for k in fresh}:
+                fresh[name] = str(sug.get("description", "")).strip()
+    if not fresh:
+        return
+
+    print(t("suggest_intro", settings.lang))
+    for name, desc in fresh.items():
+        print(t("suggest_item", settings.lang, name=name, desc=desc))
+
+    if dry_run:
+        return
+
+    if settings.auto_create_categories:
+        from .config import load_config, write_config
+        cfg = load_config()
+        cats = cfg.get("categories", [])
+        for name, desc in fresh.items():
+            cats.append({"name": name, "description": desc, "rules": {}})
+        cfg["categories"] = cats
+        write_config(cfg)
+        print(t("suggest_added", settings.lang, n=len(fresh)))
+    else:
+        print(t("suggest_hint", settings.lang))

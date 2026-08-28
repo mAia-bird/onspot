@@ -67,11 +67,17 @@ decides where it belongs.** You just choose which brain does the reading.
 - **As a program** (`python3 run.py`) — you connect a model (local, API, or a
   keyword-only fallback) and Onspot runs it for you. Best for hands-off or
   scheduled sorting.
-- **As a Claude skill** (`skill/SKILL.md`) — **Claude itself is the classifier.**
-  It reads each file (PDFs, scans, and images natively — no vision setup), picks
-  the category, and files it through the same safe engine. No API key or local
-  model needed; the intelligence is the agent. Best when you're already working
-  with Claude and just want it to tidy your inbox on request.
+- **As an AI-agent skill** (`skill/SKILL.md`) — **the agent itself is the
+  classifier.** It reads each file (PDFs, scans, and images natively — no vision
+  setup), picks the category, and files it through the same safe engine. No API key
+  or local model needed; the intelligence is the agent. The instructions are
+  model-neutral — they work with Claude Code or any capable agent that can read
+  files and run shell. Best when you're already working with an assistant and just
+  want it to tidy your inbox on request.
+
+Either way, when a document fits no existing category, **the AI can propose a new
+one** (name + description) — suggested to you, or added automatically if you set
+`auto_create_categories: true`.
 
 Both share one core: your categories in `config.json`, and a small Python helper
 (`python3 run.py place …`) that moves files safely — dedup by checksum, never
@@ -265,6 +271,7 @@ git-ignored). See [`config.example.json`](config.example.json).
 | `duplicates_dir` / `review_dir` | Names of the special folders. |
 | `categories[]` | `{ name, description, rules: { filename_any[], text_any[] } }`. |
 | `notify_telegram` | `true` to send a summary DM. |
+| `auto_create_categories` | `true` to auto-add AI-suggested categories to `config.json` (default: just suggest). |
 
 | `.env` key | What it is |
 | --- | --- |

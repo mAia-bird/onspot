@@ -50,8 +50,11 @@ def classify(settings, path: Path, preview: str) -> dict:
             category = None  # invented / "unknown" -> review
         confidence = float(result.get("confidence", 0.0) or 0.0)
         if category is None or confidence < settings.min_confidence:
+            suggestion = result.get("suggested_category")
+            if not (isinstance(suggestion, dict) and suggestion.get("name")):
+                suggestion = None
             return {"category": None, "filename": result.get("filename") or path.stem,
-                    "confidence": confidence, "via": "llm-unsure"}
+                    "confidence": confidence, "via": "llm-unsure", "suggestion": suggestion}
         return {"category": category, "filename": result.get("filename") or path.stem,
                 "confidence": confidence, "via": "llm"}
 

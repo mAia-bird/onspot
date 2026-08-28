@@ -169,12 +169,12 @@ S = {
     "done": {
         "en": "\n✓ All set.\n  Settings:  {config}\n  Secrets:   {env}  (git-ignored)\n\n"
               "Drop some files into:\n    {inbox}\n"
-              "Then run a safe preview first:\n    python run.py --dry-run\n"
-              "and when it looks right:\n    python run.py\n",
+              "Then run a safe preview first:\n    python3 run.py --dry-run\n"
+              "and when it looks right:\n    python3 run.py\n",
         "ru": "\n✓ Готово.\n  Настройки: {config}\n  Секреты:   {env}  (в .gitignore)\n\n"
               "Закинь файлы в:\n    {inbox}\n"
-              "Сначала безопасный предпросмотр:\n    python run.py --dry-run\n"
-              "а когда всё верно:\n    python run.py\n",
+              "Сначала безопасный предпросмотр:\n    python3 run.py --dry-run\n"
+              "а когда всё верно:\n    python3 run.py\n",
     },
 
     # ---- run output ----
@@ -193,6 +193,57 @@ S = {
     "summary": {
         "en": "  ── {total} file(s){dry}: 📁 {filed} filed · 🔎 {review} to review · ♻️ {dups} duplicate(s)",
         "ru": "  ── файлов: {total}{dry}: 📁 {filed} разложено · 🔎 {review} на разбор · ♻️ {dups} дублей",
+    },
+
+    # ---- self-check (python3 run.py check) ----
+    "check_title": {
+        "en": "🩺 Onspot self-check\n",
+        "ru": "🩺 Самопроверка Onspot\n",
+    },
+    "c_python": {"en": "Python {ver}", "ru": "Python {ver}"},
+    "c_config_ok": {
+        "en": "Settings found (config.json)",
+        "ru": "Настройки найдены (config.json)",
+    },
+    "c_config_missing": {
+        "en": "No settings yet — run:  python3 run.py setup",
+        "ru": "Настроек ещё нет — запусти:  python3 run.py setup",
+    },
+    "c_inbox_ok": {"en": "Inbox folder is ready: {path}", "ru": "Папка входящих готова: {path}"},
+    "c_inbox_bad": {"en": "Inbox folder not usable: {path} ({err})",
+                    "ru": "Папка входящих недоступна: {path} ({err})"},
+    "c_archive_ok": {"en": "Archive folder is ready: {path}", "ru": "Папка архива готова: {path}"},
+    "c_archive_bad": {"en": "Archive folder not usable: {path} ({err})",
+                      "ru": "Папка архива недоступна: {path} ({err})"},
+    "c_cats": {"en": "{n} categories configured", "ru": "Категорий настроено: {n}"},
+    "c_llm_ok": {"en": "AI model responds ({model})", "ru": "Нейросеть отвечает ({model})"},
+    "c_llm_off": {"en": "No AI — sorting by keyword rules (that's fine)",
+                  "ru": "Без ИИ — сортировка по правилам (это нормально)"},
+    "c_llm_bad": {"en": "AI model not reachable ({err}) — will fall back to rules",
+                  "ru": "Нейросеть недоступна ({err}) — сработают правила"},
+    "c_tg_ok": {"en": "Telegram notifications ready (@{username})",
+                "ru": "Уведомления Telegram готовы (@{username})"},
+    "c_tg_off": {"en": "Telegram notifications off", "ru": "Уведомления Telegram выключены"},
+    "c_tg_bad": {"en": "Telegram not reachable ({err})", "ru": "Telegram недоступен ({err})"},
+    "c_all_ok": {
+        "en": "\n✅ All good — you're ready. Drop files in the inbox, then:  python3 run.py",
+        "ru": "\n✅ Всё в порядке — можно работать. Кинь файлы во входящие и запусти:  python3 run.py",
+    },
+    "c_problems": {
+        "en": "\n⚠️ Some checks failed (see ✗ above). Fix those, or re-run:  python3 run.py setup",
+        "ru": "\n⚠️ Часть проверок не прошла (см. ✗ выше). Поправь их или перезапусти:  python3 run.py setup",
+    },
+
+    # ---- friendly crash message ----
+    "crash": {
+        "en": "\n❌ Something went wrong: {err}\n"
+              "   This is unexpected. Try again; if it keeps happening, report it here:\n"
+              "   https://github.com/mAia-bird/onspot/issues\n"
+              "   (for technical details, run the same command with --debug)",
+        "ru": "\n❌ Что-то пошло не так: {err}\n"
+              "   Это неожиданно. Попробуй ещё раз; если повторяется — напиши сюда:\n"
+              "   https://github.com/mAia-bird/onspot/issues\n"
+              "   (технические подробности — та же команда с флагом --debug)",
     },
 }
 

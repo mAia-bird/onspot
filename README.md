@@ -59,6 +59,24 @@ So, by design:
 - 🔔 **Optional Telegram ping** after each run.
 - 🗂️ **Google Drive friendly** — see [Using Google Drive](#using-google-drive).
 
+## Two ways to use it
+
+The heart of Onspot is the same in both: **a neural network reads each document and
+decides where it belongs.** You just choose which brain does the reading.
+
+- **As a program** (`python3 run.py`) — you connect a model (local, API, or a
+  keyword-only fallback) and Onspot runs it for you. Best for hands-off or
+  scheduled sorting.
+- **As a Claude skill** (`skill/SKILL.md`) — **Claude itself is the classifier.**
+  It reads each file (PDFs, scans, and images natively — no vision setup), picks
+  the category, and files it through the same safe engine. No API key or local
+  model needed; the intelligence is the agent. Best when you're already working
+  with Claude and just want it to tidy your inbox on request.
+
+Both share one core: your categories in `config.json`, and a small Python helper
+(`python3 run.py place …`) that moves files safely — dedup by checksum, never
+overwrite, never delete.
+
 ## Requirements
 
 - Python **3.9 or newer**. Nothing else — no `pip install`.
@@ -68,20 +86,25 @@ So, by design:
 ```bash
 git clone https://github.com/mAia-bird/onspot.git
 cd onspot
-python run.py
+python3 run.py
 ```
 
 The first run launches the setup wizard. Then drop a few files into your inbox and
 **always preview first**:
 
 ```bash
-python run.py --dry-run   # shows what would happen, touches nothing
-python run.py             # actually sorts
+python3 run.py --dry-run   # shows what would happen, touches nothing
+python3 run.py             # actually sorts
 ```
+
+> 🖱️ **Prefer not to use the terminal?** Double-click **`Onspot.command`** on
+> macOS (or **`Onspot.bat`** on Windows). It finds Python for you and, if Python
+> isn't installed, tells you exactly where to get it. On Windows the terminal
+> command is `python` instead of `python3`.
 
 ## The setup wizard
 
-`python run.py` (first time) or `python run.py setup` walks you through:
+`python3 run.py` (first time) or `python3 run.py setup` walks you through:
 
 1. **Language** — English or Russian.
 2. **Folders** — your inbox and archive paths, and whether to *move* or *copy*.
@@ -144,10 +167,10 @@ one, images are filed by their file name or sent to `_Review/`.
 ## Using it
 
 ```bash
-python run.py --dry-run       # safe preview — always start here
-python run.py                 # sort the inbox once
-python run.py --watch         # keep watching (add --interval 60 for 60s)
-python run.py setup           # re-run the wizard
+python3 run.py --dry-run       # safe preview — always start here
+python3 run.py                 # sort the inbox once
+python3 run.py --watch         # keep watching (add --interval 60 for 60s)
+python3 run.py setup           # re-run the wizard
 ```
 
 Each file prints a line: `📁 filed`, `🔎 to review`, or `♻️ duplicate`, then a
@@ -170,7 +193,7 @@ account access at all** — it just reads and writes local paths:
      `~/Library/CloudStorage/GoogleDrive-you@gmail.com/My Drive/Inbox` (macOS) or
      `G:\My Drive\Inbox` (Windows);
    - `archive` at another folder in the same Drive.
-3. Run `python run.py` as usual. Sorted files sync to Drive automatically.
+3. Run `python3 run.py` as usual. Sorted files sync to Drive automatically.
 
 > **Note:** some systems restrict *background* processes from reading the mounted
 > Drive. If a scheduled/background run can't see the folder, run Onspot as a
@@ -189,6 +212,33 @@ your own account — Google's app verification. Unverified apps that request bro
 Drive access get an *"app is blocked"* screen, which makes this awkward to hand to
 other people. It's on the roadmap as an optional backend; for now, the
 desktop-mount approach above is the supported route.
+
+## Do I need to sort anything first? (No.)
+
+A fair question: how can it know where a file goes if you haven't already
+organized everything? The answer is that **the categories *are* the structure** —
+and you set them up once, in two minutes, from a template. You never pre-sort
+actual files.
+
+- Each category has a **name and a short description** (e.g. *"01 Taxes — tax
+  returns and letters from the tax office"*). That description is what the AI
+  matches against. It reads a document, understands what it is, and picks the
+  category whose description fits — it does **not** need past examples or an
+  already-tidy archive to learn from.
+- The **keyword rules** work the same way from your definitions, not from prior
+  sorting (a file mentioning `IBAN` → *Bank*).
+- If a document matches **nothing** with enough confidence, it isn't guessed into
+  the wrong place — it waits for you in `_Review/`. As you see what lands there,
+  you tweak a category or add a keyword. The structure gets sharper over time,
+  but it **works from the very first file**.
+
+So the only "prep" is describing your folders well (the wizard's template already
+does this for common personal documents). The better the descriptions, the less
+ends up in `_Review/`.
+
+> Onspot organizes files **as they arrive**. It's not meant to reorganize a huge
+> existing pile in one shot — though you can absolutely feed an old folder through
+> the inbox in batches to sort it.
 
 ## How a file is matched
 
@@ -233,8 +283,26 @@ network calls except to `localhost`. With an **API** model, the text (or image) 
 each file is sent to that provider for classification; nothing else is uploaded,
 and files are never posted anywhere public.
 
+## How do I know it worked?
+
+Two ways, both plain:
+
+- **A self-check, any time:**
+  ```bash
+  python3 run.py check
+  ```
+  It prints a ✓/✗ checklist — Python, settings, folders, the AI model, Telegram —
+  and ends with either *"✅ All good"* or *"⚠️ Some checks failed"* pointing at the
+  exact line to fix. Run this whenever you're unsure.
+- **Every run reports itself.** Each file prints `📁 filed`, `🔎 to review`, or
+  `♻️ duplicate`, then a one-line summary. Nothing silent: an empty inbox says so,
+  and an unexpected error prints a plain message (with a link to report it), not a
+  wall of code. A full history lives in `archive/.onspot/log.txt`.
+
 ## Troubleshooting
 
+- **`zsh: command not found: python`.** Use `python3` (macOS/Linux only ship
+  `python3`). Or just double-click `Onspot.command`.
 - **Everything lands in `_Review/`.** No rules matched and no AI is configured (or
   it couldn't be reached). Add keywords to your categories, or connect a model.
 - **A scanned PDF wasn't understood.** Scans have no text layer — connect a vision
